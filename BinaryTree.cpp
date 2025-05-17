@@ -81,7 +81,7 @@ void postOrderTraversal(Node *root)
 // Function for Level Order Traversal
 void levelOrderTraversal(Node *root)
 {
-    queue<Node*> q;
+    queue<Node *> q;
 
     q.push(root);
     q.push(NULL);
@@ -119,12 +119,53 @@ void levelOrderTraversal(Node *root)
     }
 }
 
+// Function for finding the height of a tree
+int heightOfTree(Node *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+
+    int leftHeight = heightOfTree(root->left);
+    int rightHeight = heightOfTree(root->right);
+
+    return max(leftHeight, rightHeight) + 1;
+}
+
+// Function for Count of Nodes
+int countOfNodes(Node *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+
+    int leftSTCount = countOfNodes(root->left);
+    int rightSTCount = countOfNodes(root->right);
+
+    return leftSTCount + rightSTCount + 1;
+}
+
+// Function for Sum of Nodes
+int sumOfNodes(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+
+    int leftSum = sumOfNodes(root->left);
+    int rightSum = sumOfNodes(root->right);
+
+    return leftSum + rightSum + root->data;
+}
+
 int main()
 {
     vector<int> preOrderSequqnce = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
 
     Node *root = preOrder(preOrderSequqnce);
-    levelOrderTraversal(root);
+    cout << "Sum of Nodes of a tree are:" << sumOfNodes(root);
+    // levelOrderTraversal(root);
     // cout << root->data <<endl;
     // cout << root->left->data <<endl;
     // cout << root->right->data <<endl;
