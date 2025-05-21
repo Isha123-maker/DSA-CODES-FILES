@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <map>
 
 using namespace std;
 
@@ -148,8 +149,10 @@ int countOfNodes(Node *root)
 }
 
 // Function for Sum of Nodes
-int sumOfNodes(Node* root){
-    if(root == NULL){
+int sumOfNodes(Node *root)
+{
+    if (root == NULL)
+    {
         return 0;
     }
 
@@ -159,12 +162,87 @@ int sumOfNodes(Node* root){
     return leftSum + rightSum + root->data;
 }
 
+void topViewOfTree(Node *root)
+{
+    if (!root)
+    {
+        return;
+    }
+    queue<pair<Node *, int> > q;
+    map<int, int> m;
+    q.push({root, 0});
+
+    while (q.size() > 0)
+    {
+        Node *curr = q.front().first;
+        int currHD = q.front().second;
+        q.pop();
+
+        if (m.find(currHD) == m.end())
+        {
+            m[currHD] = curr->data;
+        }
+
+        if (curr->left != NULL)
+        {
+            q.push({curr->left, currHD - 1});
+        }
+        if (curr->right != NULL)
+        {
+            q.push({curr->right, currHD + 1});
+        }
+    }
+
+    for (auto it : m)
+    {
+        cout << it.second << " ";
+    }
+
+    cout << endl;
+}
+
+void bottomViewOfTree(Node *root)
+{
+    if (!root)
+    {
+        return;
+    }
+    queue<pair<Node *, int> > q;
+    map<int, int> m;
+    q.push({root, 0});
+
+    while (q.size() > 0)
+    {
+        Node *curr = q.front().first;
+        int currHD = q.front().second;
+        q.pop();
+
+        m[currHD] = curr->data;
+
+        if (curr->left != NULL)
+        {
+            q.push({curr->left, currHD - 1});
+        }
+        if (curr->right != NULL)
+        {
+            q.push({curr->right, currHD + 1});
+        }
+    }
+
+    for (auto it : m)
+    {
+        cout << it.second << " ";
+    }
+
+    cout << endl;
+}
+
 int main()
 {
     vector<int> preOrderSequqnce = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
 
     Node *root = preOrder(preOrderSequqnce);
-    cout << "Sum of Nodes of a tree are:" << sumOfNodes(root);
+    bottomViewOfTree(root);
     // levelOrderTraversal(root);
     // cout << root->data <<endl;
     // cout << root->left->data <<endl;
