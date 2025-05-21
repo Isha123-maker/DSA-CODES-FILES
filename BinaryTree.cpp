@@ -237,6 +237,13 @@ void bottomViewOfTree(Node *root)
     cout << endl;
 }
 
+// For left and right views, we use the same map logic as in top/bottom view.
+// The only change is in the order we push left and right children:
+// 👉 Left View  = push left child first, then right child
+// 👉 Right View = push right child first, then left child
+// This way, the first or last node at each level will be set based on traversal order.
+
+
 int main()
 {
     vector<int> preOrderSequqnce = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
