@@ -168,7 +168,7 @@ void topViewOfTree(Node *root)
     {
         return;
     }
-    queue<pair<Node *, int> > q;
+    queue<pair<Node *, int>> q;
     map<int, int> m;
     q.push({root, 0});
 
@@ -207,7 +207,7 @@ void bottomViewOfTree(Node *root)
     {
         return;
     }
-    queue<pair<Node *, int> > q;
+    queue<pair<Node *, int>> q;
     map<int, int> m;
     q.push({root, 0});
 
@@ -243,13 +243,30 @@ void bottomViewOfTree(Node *root)
 // 👉 Right View = push right child first, then left child
 // This way, the first or last node at each level will be set based on traversal order.
 
+// Function for Printing Kth level of Node
+void kthLevel(Node *root, int k)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    if (k == 1)
+    {
+        cout << root->data << " ";
+        return;
+    }
+
+    kthLevel(root->left, k - 1);
+    kthLevel(root->right, k - 1);
+}
 
 int main()
 {
     vector<int> preOrderSequqnce = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
 
     Node *root = preOrder(preOrderSequqnce);
-    bottomViewOfTree(root);
+    kthLevel(root, 2);
     // levelOrderTraversal(root);
     // cout << root->data <<endl;
     // cout << root->left->data <<endl;
